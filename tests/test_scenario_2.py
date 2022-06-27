@@ -66,6 +66,6 @@ def test_3_changes_petfoto(pet_photo=r'../images/king-kong3.jpg'):
 
     # Сверяем полученный ответ с ожидаемым результатом
     assert status == 200
-    # Если данный текст содержится в полученном ответе, то Passed:
+    # Если текст первой фотки отсутствует в полученном ответе, то Passed:
     assert value_image1 != value_image2
 
