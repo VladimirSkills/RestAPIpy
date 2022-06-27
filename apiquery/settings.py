@@ -1,6 +1,6 @@
 # valid email + valid password:
-valid_email = "zeubaoabk5@bheps.com"  # name@domen
-valid_password = "12sdfFG#"
+valid_email = ""  # name@domen
+valid_password = ""
 valid_name_31 = "zbk5_sdjg$f1ldf_56b5_sdfkjg$f51@bheps.com"  # valid name = 31 символ + valid domen
 valid_pass_31 = "12sdf5sggn$FG#"
 name_nul = "00000@bheps.com"  # только нули в имени
