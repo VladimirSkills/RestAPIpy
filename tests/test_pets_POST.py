@@ -1,4 +1,5 @@
 import json
+import inspect  # используем метод для возвращения имени функции
 import os
 from apiquery.settings import valid_email, valid_password, notvalid_name_1s, bigname_photo
 from apiquery.api import PetFriends
@@ -9,25 +10,26 @@ pf = PetFriends()
 def test_1_add_new_pet(name='King-Kong', animal_type='Monkey', age='3', pet_photo=r'../images/king-kong2.jpg'):
     """Позитивный. Валидный тест. Проверяем, что питомец добавлен с корректными данными"""
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
-    start = time.monotonic_ns()  # засекаем таймер начала выполнения теста...
+    start = time.time_ns() # засекаем таймер начала выполнения теста...
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
     _, auth_key, _, _ = pf.get_api_key(valid_email, valid_password)
 
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'w', encoding='utf8') as write:
-        write.write('\ntest_1_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')  # Выводим имя тест-функции, как заголовок ответа
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
-    finish = time.monotonic_ns()  # засекаем таймер после выполнения теста...
+    finish = time.time_ns() # засекаем таймер после выполнения теста...
     time_test = (finish - start)//1000000
-    print(f"Время выполнения теста: {time_test} млсек.")
+    print(f"Время выполнения теста: {time_test} мсек.")
 
     # Сверяем полученный ответ с ожидаемым результатом:
     assert status == 200
     assert result.get('name') == name and result.get('animal_type') == animal_type and result.get('age') == age
     assert 'image/jpeg' in result.get('pet_photo')
+    assert optional.get('auth_key') == auth_key.get('key')
     assert time_test < 1000
 
 
@@ -39,7 +41,7 @@ def test_2_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet_set_photo(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_2_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -54,7 +56,7 @@ def test_3_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_3_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -71,7 +73,7 @@ def test_4_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_4_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -88,7 +90,7 @@ def test_5_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_5_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -105,7 +107,7 @@ def test_6_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_6_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -122,7 +124,7 @@ def test_7_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_7_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -139,7 +141,7 @@ def test_8_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_8_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -156,7 +158,7 @@ def test_9_add_new_pet(name='King-Kong-Live!', animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_9_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -173,7 +175,7 @@ def test_10_add_new_pet(name='', animal_type='Monkey/Gorila', age='111', pet_pho
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_10_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -190,7 +192,7 @@ def test_11_add_new_pet(name='156165465156', animal_type='Monkey/Gorila', age='1
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_11_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -207,7 +209,7 @@ def test_12_add_new_pet(name='Кинг-Конг', animal_type='Monkey/Gorila', a
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_12_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -224,7 +226,7 @@ def test_13_add_new_pet(name=notvalid_name_1s, animal_type='Monkey/Gorila', age=
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_13_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -241,7 +243,7 @@ def test_14_add_new_pet(name='King-Kong', animal_type='#*&_=?$()Х{}!@', age='11
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_14_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -258,7 +260,7 @@ def test_15_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age=111, 
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_15_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -275,7 +277,7 @@ def test_16_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='', p
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_16_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -292,7 +294,7 @@ def test_17_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='88',
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_17_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -309,7 +311,7 @@ def test_18_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='188'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_18_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -326,7 +328,7 @@ def test_19_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='188'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_19_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -343,7 +345,7 @@ def test_20_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='122'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_20_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -360,7 +362,7 @@ def test_21_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='111'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_21_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -377,7 +379,7 @@ def test_22_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='155'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_22_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -394,7 +396,7 @@ def test_23_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='145'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_23_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
@@ -411,7 +413,7 @@ def test_24_add_new_pet(name='King-Kong', animal_type='Monkey/Gorila', age='145'
     # Добавляем питомца
     status, result, content, optional = pf.add_new_pet(auth_key, name, animal_type, age, pet_photo)
     with open("out_json.json", 'a', encoding='utf8') as write:
-        write.write('\ntest_24_add_new_pet:\n')
+        write.write(f'\n{inspect.currentframe().f_code.co_name}:\n')
         json.dump(result, write, ensure_ascii=False, indent=4)
     print('\nContent:', content)
     print('Optional:', optional)
